@@ -27,7 +27,7 @@ Widget::Widget(QWidget *parent)
     QHBoxLayout *hBoxLayout = new QHBoxLayout;
     hBoxLayout->addWidget(new QLabel(tr("Connect to address:")));
     hBoxLayout->addWidget(addressComboBox);
-    hBoxLayout->addWidget(new QLabel(tr("port:")));
+    hBoxLayout->addWidget(new QLabel(tr("Port:")));
     hBoxLayout->addWidget(portComboBox);
 
     datagramLabel = new QLabel();
