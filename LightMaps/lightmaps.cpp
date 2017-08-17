@@ -28,7 +28,7 @@ LightMaps::LightMaps(QWidget *parent) :
 
     coordinateLabel = new QLabel;
     QPalette palette;
-    palette.setColor(QPalette::WindowText, Qt::darkGray);
+    palette.setColor(QPalette::WindowText, QColor(Qt::darkGray).darker(150));
     coordinateLabel->setPalette(palette);
     QVBoxLayout *vLayout = new QVBoxLayout;
     vLayout->addStretch();
