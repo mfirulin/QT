@@ -14,7 +14,7 @@ public:
     ~Waterfall();
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *);
 
 private:
     const int imageWidth;

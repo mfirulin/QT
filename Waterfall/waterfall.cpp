@@ -26,20 +26,15 @@ Waterfall::Waterfall(int w, int h, int t, QWidget *parent)
 
 Waterfall::~Waterfall()
 {
-
+    delete image;
 }
 
 void Waterfall::data(const QByteArray &array)
 {
-    QPainter painter(image);
+    QImage tImage = image->copy();
 
-    for(int i = imageHeight - 2; i >= 0; --i) {
-        for(int j = 0; j < imageWidth; ++j) {
-            QRgb color = image->pixel(j, i);
-            painter.setPen(color);
-            painter.drawPoint(j, i + 1);
-        }
-    }
+    QPainter painter(image);
+    painter.drawImage(0, 1, tImage, 0, 0, imageWidth, imageHeight - 1);
 
     for(int i = 0, j = 0; i < imageWidth; ++i, j += 3) {
         QRgb color = qRgb(static_cast<quint8>(array[j]),
@@ -53,7 +48,7 @@ void Waterfall::data(const QByteArray &array)
     update();
 }
 
-void Waterfall::paintEvent(QPaintEvent *event)
+void Waterfall::paintEvent(QPaintEvent *)
 {
     QSize size = this->size();
     qreal sx = size.width();
