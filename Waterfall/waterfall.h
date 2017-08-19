@@ -2,15 +2,13 @@
 #define WATERFALL_H
 
 #include <QWidget>
-class DataProvider;
-class QImage;
 
 class Waterfall : public QWidget
 {
     Q_OBJECT
 
 public:
-    Waterfall(int w, int h, bool s, QWidget *parent = nullptr);
+    Waterfall(int w, int h, int p, bool s, QWidget *parent = nullptr);
     ~Waterfall();
 
 protected:
@@ -19,8 +17,10 @@ protected:
 private:
     const int imageWidth;
     const int imageHeight;
+    const int portion;
     const bool smooth;
     QImage *image;
+    QVector<QVector<QRgb>> lines;
 
 public slots:
     void data(const QByteArray &);

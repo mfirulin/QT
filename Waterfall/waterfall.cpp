@@ -2,12 +2,17 @@
 #include "dataprovider.h"
 #include <QtWidgets>
 
-Waterfall::Waterfall(int w, int h, bool s, QWidget *parent)
+Waterfall::Waterfall(int w, int h, int p, bool s, QWidget *parent)
     : QWidget(parent),
       imageWidth(w),
       imageHeight(h),
+      portion(p),
       smooth(s)
 {
+    lines.resize(portion);
+    for(QVector<QVector<QRgb>>::iterator i = lines.begin(); i != lines.end(); ++i)
+        i->resize(imageWidth);
+
     image = new QImage(imageWidth, imageHeight, QImage::Format_ARGB32_Premultiplied);
 
     QPainter painter(image);
@@ -26,17 +31,28 @@ Waterfall::~Waterfall()
 
 void Waterfall::data(const QByteArray &array)
 {
+    static int line;
+
+    for(int i = 0, j = 0; i < array.size(); i += 3, ++j)
+        lines[line][j] = qRgb(static_cast<quint8>(array[i]),
+                              static_cast<quint8>(array[i + 1]),
+                              static_cast<quint8>(array[i + 2]));
+    ++line;
+
+    if(line < portion)
+        return;
+
+    line = 0;
+
     QImage tImage = image->copy();
 
     QPainter painter(image);
-    painter.drawImage(0, 1, tImage, 0, 0, imageWidth, imageHeight - 1);
+    painter.drawImage(0, portion, tImage, 0, 0, imageWidth, imageHeight - portion);
 
-    for(int i = 0, j = 0; i < imageWidth; ++i, j += 3) {
-        QRgb color = qRgb(static_cast<quint8>(array[j]),
-                          static_cast<quint8>(array[j + 1]),
-                          static_cast<quint8>(array[j + 2]));
-        painter.setPen(color);
-        painter.drawPoint(i, 0);
+    for(int i = 0; i < portion; ++i)
+        for(int j = 0; j < imageWidth; ++j) {
+            painter.setPen(lines[i][j]);
+            painter.drawPoint(j, i);
     }
 
     painter.end();
