@@ -15,6 +15,8 @@ Waterfall::Waterfall(int w, int h, bool s, QWidget *parent)
     painter.setBrush(Qt::white);
     painter.drawRect(0, 0, imageWidth, imageHeight);
     painter.end();
+
+    this->resize(image->size());
 }
 
 Waterfall::~Waterfall()
