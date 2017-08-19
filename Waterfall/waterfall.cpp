@@ -43,13 +43,12 @@ void Waterfall::data(const QByteArray &array)
 
 void Waterfall::paintEvent(QPaintEvent *)
 {
-    QSize size = this->size();
-    qreal sx = size.width();
-    qreal sy = size.height();
+    qreal w = this->width();
+    qreal h = this->height();
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, smooth);
-    painter.scale(sx / imageWidth, sy / imageHeight);
+    painter.scale(w / imageWidth, h / imageHeight);
     painter.drawImage(0, 0, *image);
     painter.end();
 }
