@@ -9,11 +9,12 @@ Waterfall::Waterfall(int w, int h, int p, bool s, QWidget *parent)
       portion(p),
       smooth(s)
 {
+    scaleRatio = 10;
     lines.resize(portion);
     for(QVector<QVector<QRgb>>::iterator i = lines.begin(); i != lines.end(); ++i)
         i->resize(imageWidth);
 
-    image = new QImage(imageWidth, imageHeight, QImage::Format_ARGB32_Premultiplied);
+    image = new QImage(imageWidth, imageHeight * scaleBuffer, QImage::Format_ARGB32_Premultiplied);
 
     QPainter painter(image);
     painter.setPen(Qt::NoPen);
@@ -22,6 +23,25 @@ Waterfall::Waterfall(int w, int h, int p, bool s, QWidget *parent)
     painter.end();
 
     this->resize(image->size());
+
+    plus = new QPushButton("+");
+    plus->setEnabled(false);
+    minus = new QPushButton("-");
+    plus->setMaximumSize(30, 30);
+    plus->setMinimumSize(30, 30);
+    minus->setMaximumSize(30, 30);
+    minus->setMinimumSize(30, 30);
+    QVBoxLayout *vLayout = new QVBoxLayout;
+    vLayout->addStretch();
+    vLayout->addWidget(plus, 0, Qt::AlignRight);
+    vLayout->addWidget(minus, 0, Qt::AlignRight);
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addStretch();
+    hLayout->addLayout(vLayout);
+    this->setLayout(hLayout);
+
+    connect(minus, &QPushButton::clicked, this, &Waterfall::onMinusClicked);
+    connect(plus, &QPushButton::clicked, this, &Waterfall::onPlusClicked);
 }
 
 Waterfall::~Waterfall()
@@ -64,9 +84,36 @@ void Waterfall::paintEvent(QPaintEvent *)
     qreal w = this->width();
     qreal h = this->height();
 
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform, smooth);
-    painter.scale(w / imageWidth, h / imageHeight);
+    QImage tImage(imageWidth, imageHeight * scaleBuffer, QImage::Format_ARGB32_Premultiplied);
+
+    QPainter painter(&tImage);
+    painter.scale(1.0, scaleRatio * 0.1);
     painter.drawImage(0, 0, *image);
     painter.end();
+
+    painter.begin(this);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, smooth);
+    painter.scale(w / imageWidth, h / imageHeight);
+    painter.drawImage(0, 0, tImage);
+    painter.end();
+}
+
+void Waterfall::onMinusClicked()
+{
+    scaleRatio -= 1;
+    if(!plus->isEnabled())
+        plus->setEnabled(true);
+
+    if(scaleRatio == 5)
+        minus->setEnabled(false);
+}
+
+void Waterfall::onPlusClicked()
+{
+    scaleRatio += 1;
+    if(!minus->isEnabled())
+        minus->setEnabled(true);
+
+    if(scaleRatio == 10)
+        plus->setEnabled(false);
 }
