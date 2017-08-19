@@ -9,7 +9,7 @@ class DataProvider : public QObject
 {
     Q_OBJECT
 public:
-    explicit DataProvider(int size = 1024, int interval = 100, QObject *parent = nullptr);
+    explicit DataProvider(int size, int interval, QObject *parent = nullptr);
     bool isActive() const;
 
 private:

@@ -10,7 +10,7 @@ class Waterfall : public QWidget
     Q_OBJECT
 
 public:
-    Waterfall(int w = 500, int h = 375, int t = 1000, QWidget *parent = 0);
+    Waterfall(int w, int h, bool s, QWidget *parent = nullptr);
     ~Waterfall();
 
 protected:
@@ -19,7 +19,7 @@ protected:
 private:
     const int imageWidth;
     const int imageHeight;
-    DataProvider *dataProvider;
+    const bool smooth;
     QImage *image;
 
 public slots:

@@ -12,10 +12,8 @@ DataProvider::DataProvider(int size, int interval, QObject* parent) : QObject(pa
 
 void DataProvider::putData()
 {
-    for(int i = 0; i < buffer.size(); ++i) {
+    for(int i = 0; i < buffer.size(); ++i)
         buffer[i] = qrand() % 256;
-        //qDebug() << static_cast<quint8>(buffer[i]);
-    }
 }
 
 void DataProvider::processTimer()

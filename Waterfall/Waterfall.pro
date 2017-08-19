@@ -26,8 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         waterfall.cpp \
-    dataprovider.cpp
+    dataprovider.cpp \
+    widget.cpp
 
 HEADERS += \
         waterfall.h \
-    dataprovider.h
+    dataprovider.h \
+    widget.h
