@@ -69,8 +69,6 @@ void TcpClient::readMessage()
         emit connected();
     else if(message == "DELOK")
         socket->disconnectFromHost();
-    else if(message == "CONFOK")
-        ;
     else
         qDebug() << "Unknown message received" << message;
 }
