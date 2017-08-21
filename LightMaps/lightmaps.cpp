@@ -100,6 +100,7 @@ void LightMaps::mousePressEvent(QMouseEvent *event)
     if (event->buttons() == Qt::LeftButton) {
         pressed = snapped = true;
         pressPos = dragPos = event->pos();
+        QApplication::setOverrideCursor(Qt::SizeAllCursor);
     }
     else if (event->buttons() == Qt::RightButton) {
         pressPos = event->pos();
@@ -134,6 +135,7 @@ void LightMaps::mouseMoveEvent(QMouseEvent *event)
 void LightMaps::mouseReleaseEvent(QMouseEvent *)
 {
     pressed = false;
+    QApplication::restoreOverrideCursor();
     update();
 }
 
