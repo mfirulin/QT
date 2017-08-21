@@ -33,8 +33,8 @@ Waterfall::Waterfall(int w, int h, int p, bool s, QWidget *parent)
     minus->setMinimumSize(30, 30);
     QVBoxLayout *vLayout = new QVBoxLayout;
     vLayout->addStretch();
-    vLayout->addWidget(plus, 0, Qt::AlignRight);
-    vLayout->addWidget(minus, 0, Qt::AlignRight);
+    vLayout->addWidget(plus);
+    vLayout->addWidget(minus);
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addStretch();
     hLayout->addLayout(vLayout);
