@@ -1,5 +1,4 @@
 #include "udpserver.h"
-#include "dataprovider.h"
 #include <QUdpSocket>
 
 UdpServer::UdpServer(QObject *parent) : QObject(parent)
