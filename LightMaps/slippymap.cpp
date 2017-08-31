@@ -118,7 +118,9 @@ void SlippyMap::pan(const QPoint &delta)
 
 QPointF SlippyMap::coordinateFromPoint(const QPoint &pos)
 {
-    QPointF dx = QPointF(pos) / qreal(tdim);
+    QPoint center(width / 2, height / 2);
+    QPoint delta = pos - center;
+    QPointF dx = QPointF(delta) / qreal(tdim);
     QPointF p = tileForCoordinate(latitude, longitude, zoom) - dx;
     qreal latitude = latitudeFromTile(p.y(), zoom);
     qreal longitude = longitudeFromTile(p.x(), zoom);
