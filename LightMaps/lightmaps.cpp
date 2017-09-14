@@ -96,8 +96,9 @@ void LightMaps::paintEvent(QPaintEvent *event)
     p.begin(this);
     m_map->render(&p, event->rect());
     p.setPen(Qt::gray);
+    p.setFont(QFont("Helvetica", 8, QFont::StyleNormal));
     p.drawText(rect(),  Qt::AlignBottom | Qt::AlignRight | Qt::TextWordWrap,
-               "Map data OpenStreetMap.org");
+               "OpenStreetMap.org");
     p.end();
 
     if (invert) {
