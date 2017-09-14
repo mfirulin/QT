@@ -129,6 +129,21 @@ QPointF SlippyMap::coordinateFromPoint(const QPoint &pos)
     return p;
 }
 
+QPointF SlippyMap::worldCoordinate(qreal lat, qreal lng)
+{
+    qreal sinY = sin(lat * M_PI / 180);
+    sinY = qMin(qMax(sinY, -0.9999), 0.9999);
+    qreal x = tdim * (0.5 + lng / 360);
+    qreal y = tdim * (0.5 - log((1 + sinY) / (1 - sinY)) / (4 * M_PI));
+    return QPointF(x, y);
+}
+
+QPoint SlippyMap::pixelCoordinate(qreal lat, qreal lng)
+{
+    QPointF pf = worldCoordinate(lat, lng);
+    return QPoint(qFloor(pf.x() * (1 << zoom)), qFloor(pf.y() * (1 << zoom)));
+}
+
 void SlippyMap::handleNetworkData(QNetworkReply *reply)
 {
     QImage img;
