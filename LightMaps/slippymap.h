@@ -19,6 +19,8 @@ public:
     void render(QPainter *p, const QRect &rect);
     void pan(const QPoint &delta);
     QPointF coordinateFromPoint(const QPoint &pos);
+    QPointF worldCoordinate(qreal lat, qreal lng);
+    QPoint pixelCoordinate(qreal lat, qreal lng);
 
     int width;
     int height;
