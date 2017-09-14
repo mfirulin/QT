@@ -183,6 +183,16 @@ void SlippyMap::download()
         return;
     }
 
+    // Open Street Map
+    //QString path = "http://tile.openstreetmap.org/%1/%2/%3.png";
+    // Google Maps. lyrs parameter: y = hybrid, s = satelite, t = train, m = map
+    //QString path = "http://mt1.google.com/vt/lyrs=m&x=%2&y=%3&z=%1";
+    // Yandex Maps
+    //QString path = "http://vec01.maps.yandex.net/tiles?l=map&x=%2&y=%3&z=%1";
+    // Internal map. Yandex API tiles.
+    //QString path = "http://localhost:81/map/%1/tile-%2-%3.jpg";
+    // Internal map. MapTiler tiles.
+    //QString path = "http://localhost:81/map/%1/%2/%3.png";
     QString path = "http://tile.openstreetmap.org/%1/%2/%3.png";
     m_url = QUrl(path.arg(zoom).arg(grab.x()).arg(grab.y()));
     QNetworkRequest request;
