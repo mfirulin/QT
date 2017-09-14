@@ -27,6 +27,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *);
     void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    void displayScale();
 
 private slots:
     void updateMap(const QRect &r);
