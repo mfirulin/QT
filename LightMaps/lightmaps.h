@@ -47,6 +47,8 @@ private:
     bool invert;
     QSlider *zoomSlider;
     QLabel *coordinateLabel;
+    QLabel *scaleTextLabel;
+    QLabel *scaleImageLabel;
 };
 
 #endif // LIGHTMAPS_H
