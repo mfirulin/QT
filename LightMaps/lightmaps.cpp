@@ -54,7 +54,6 @@ LightMaps::LightMaps(QWidget *parent) :
     this->setLayout(hLayout2);
 
     setMouseTracking(true);
-    displayScale();
 }
 
 void LightMaps::setCenter(qreal lat, qreal lng)
@@ -73,6 +72,7 @@ void LightMaps::toggleNightMode()
 void LightMaps::updateMap(const QRect &r)
 {
     update(r);
+    displayScale();
 }
 
 void LightMaps::zoomMap()
@@ -81,7 +81,6 @@ void LightMaps::zoomMap()
     m_map->invalidate();
     update();
     this->setFocus();
-    displayScale();
 }
 
 void LightMaps::resizeEvent(QResizeEvent *)
