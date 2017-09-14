@@ -34,7 +34,7 @@ private slots:
     void zoomMap();
 
 private:
-    static const int ZOOM_MIN = 5;
+    static const int ZOOM_MIN = 3;
     static const int ZOOM_MAX = 19;
     static const int ZOOM_DEFAULT = 10;
     SlippyMap *m_map;
