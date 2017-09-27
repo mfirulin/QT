@@ -159,6 +159,8 @@ void LightMaps::wheelEvent(QWheelEvent *event)
         ++m_map->zoom;
     else if(event->delta() < 0 && m_map->zoom > ZOOM_MIN)
         --m_map->zoom;
+    else
+        return;
 
     zoomSlider->setValue(m_map->zoom);
     m_map->invalidate();
